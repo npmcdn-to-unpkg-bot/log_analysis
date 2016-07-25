@@ -1,0 +1,43 @@
+spring:
+    application:
+        name: agendaService_dev
+    datasource:
+        url: jdbc:mysql://localhost:3306/logs?useUnicode=true&characterEncoding=utf8&useSSL=false
+        name:
+        username: test
+        password: test
+        hikari:
+            data-source-properties:
+              cachePrepStmts: true
+              prepStmtCacheSize: 250
+              prepStmtCacheSqlLimit: 2048
+              useServerPrepStmts: true
+    jpa:
+        database: MYSQL
+        show_sql: true
+        hibernate:
+          ddl-auto : update
+        properties:
+            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: false
+            hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+            hibernate.dialect : org.hibernate.dialect.MySQL5Dialect
+    jmx:
+        default-domain: ${spring.application.name}
+
+
+        # ===================================================================
+        # log specific properties
+        # ===================================================================
+log:
+    swagger:
+      title: agenda service  API
+      description: agenda API documentation
+      version: 0.0.1
+      termsOfServiceUrl:
+      contactName:
+      contactUrl:
+      contactEmail:
+      license:
+      licenseUrl:
