@@ -77,6 +77,19 @@ public class AdminController
 
     }
 
+    @RequestMapping(value = "/employe/list",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAEmployeList() throws URISyntaxException, LogException
+    {
+        logger.debug("Call rest to get the list of   employe ");
+        List<Employe> result = userService.getList();
+
+        return ResponseEntity.created(new URI("/employe/list"))
+                .body(result);
+
+    }
+
     @RequestMapping(value = "/alert/delete",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -98,7 +111,20 @@ public class AdminController
         logger.debug("Call rest to get the list of   alert ");
         List<Alert> result = alertService.getAlertList();
 
-        return ResponseEntity.created(new URI("/list"))
+        return ResponseEntity.created(new URI("alert/list"))
+                .body(result);
+
+    }
+
+    @RequestMapping(value = "/alert/list/date",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAlertList(@RequestParam("start")String start,@RequestParam("end")String end) throws URISyntaxException, LogException
+    {
+        logger.debug("Call rest to get the list of   alert between  {} and {}",start,end);
+        List<Alert> result = alertService.getAlertListBetweenDates(start,end);
+
+        return ResponseEntity.created(new URI("/alert/list/date"))
                 .body(result);
 
     }

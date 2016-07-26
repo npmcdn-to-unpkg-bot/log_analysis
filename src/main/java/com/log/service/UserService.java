@@ -18,9 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService
@@ -86,6 +84,13 @@ public class UserService
                     return  emp ;
                 })
                 .orElseThrow(() -> new LogException("the user with id " + id + " not found"));
+
+
+    }
+
+    public List<Employe> getList() throws LogException
+    {
+        return userRepository.findAll();
 
 
     }

@@ -18,21 +18,21 @@ public class Employe implements UserDetails
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id ;
+    private long id;
 
     private String cin;
 
     private String firstname;
 
-    private String lastName ;
+    private String lastName;
 
-    private String address ;
+    private String address;
 
     private String tel;
 
-    private String username ;
+    private String username;
 
-    private String password ;
+    private String password;
 
     @Column(name = "enabled", nullable = true, columnDefinition = "tinyint(1) default NULL")
     private boolean enabled;
@@ -44,11 +44,6 @@ public class Employe implements UserDetails
             joinColumns = {@JoinColumn(name = "employe_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")})
     private Set<Authority> authorityList = new HashSet<>();
-
-
-    @JsonIgnore
-    @ManyToOne
-    private Function function;
 
     public Employe()
     {
@@ -127,16 +122,6 @@ public class Employe implements UserDetails
     public void setAuthorityList(Set<Authority> authorityList)
     {
         this.authorityList = authorityList;
-    }
-
-    public Function getFunction()
-    {
-        return function;
-    }
-
-    public void setFunction(Function function)
-    {
-        this.function = function;
     }
 
     public String getPassword()

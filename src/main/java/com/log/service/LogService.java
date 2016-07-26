@@ -40,6 +40,7 @@ public class LogService
                 while ((line = bufferedReader.readLine()) != null)
                 {
                    Alert alert = alertService.createAlert(line) ;
+                    if(alert !=null)
                     alerts.add(alert);
                 }
                 logFile.setAlerts(alerts);
