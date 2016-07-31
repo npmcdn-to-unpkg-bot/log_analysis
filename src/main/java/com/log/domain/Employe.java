@@ -37,7 +37,6 @@ public class Employe implements UserDetails
     @Column(name = "enabled", nullable = true, columnDefinition = "tinyint(1) default NULL")
     private boolean enabled;
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "employe_authority",

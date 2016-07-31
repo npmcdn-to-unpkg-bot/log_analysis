@@ -25,6 +25,9 @@ spring:
             hibernate.dialect : org.hibernate.dialect.MySQL5Dialect
     jmx:
         default-domain: ${spring.application.name}
+multipart:
+    maxFileSize: -1
+    maxRequestSize: -1
 
 
         # ===================================================================

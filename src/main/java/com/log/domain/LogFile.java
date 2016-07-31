@@ -17,8 +17,7 @@ public class LogFile
     private String name;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "logFile")
     private Set<Alert> alerts = new HashSet<>();
 
     public LogFile()

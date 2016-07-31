@@ -1,0 +1,30 @@
+<div>
+    <h2><span >User</span> "{{vm.user.username}}"</h2>
+    <dl class="dl-horizontal">
+        <dt><span >Login</span></dt>
+        <dd><span>{{vm.user.username}}<span></dd>
+        <dt><span >First Name</span></dt>
+        <dd>{{vm.user.firstname}}</dd>
+        <dt><span >Last Name</span></dt>
+        <dd>{{vm.user.lastName}}</dd>
+        <dt><span >Cin</span></dt>
+        <dd>{{vm.user.cin}}</dd>
+        <dt><span >Enabled</span></dt>
+        <dd>{{vm.user.enabled}}</dd>
+        <dt><span >Address</span></dt>
+        <dd>{{vm.user.address}}</dd>
+        <dt><span >Tel</span></dt>
+        <dd>{{vm.user.tel}}</dd>
+        <dt><span >Profiles</span></dt>
+        <dd>
+            <ul class="list-unstyled">
+                <li ng-repeat="authority in vm.user.authorities"><span>{{authority}}</span></li>
+            </ul>
+        </dd>
+    </dl>
+    <button type="submit"
+            ui-sref="user-management"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span > Back</span>
+    </button>
+</div>

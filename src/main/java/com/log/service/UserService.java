@@ -7,6 +7,8 @@ import com.log.exception.LogException;
 import com.log.repository.AuthorityRepository;
 import com.log.repository.EmployeRepository;
 import com.log.security.SecurityUtils;
+import com.log.utils.BusinessAndDomainConverter;
+import com.log.web.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,13 +38,17 @@ public class UserService
     private AuthorityRepository authorityRepository;
 
     @Inject
+    private BusinessAndDomainConverter converter ;
+
+    @Inject
     private RestTemplate restTemplate;
 
-    public Employe create(Employe employe)
+    public Employe create(UserDto userDto)
     {
 
-        userRepository.findOneByUsername(employe.getUsername())
+        userRepository.findOneByUsername(userDto.getUsername())
                 .ifPresent(us -> new Exception("the user name" + us.getUsername() + " is already in user"));
+        Employe employe = converter.fromBusinessToUser(userDto);
 
         employe.setPassword(passwordEncoder.encode(employe.getPassword()));
         Optional<Authority> authority = authorityRepository.findOneByName("ROLE_USER");
@@ -54,12 +60,13 @@ public class UserService
 
     }
 
-    public Employe update(Employe newEmploye) throws LogException
+    public Employe update(UserDto userDto) throws LogException
     {
 
 
-        return userRepository.findOneById(newEmploye.getId())
+        return userRepository.findOneById(userDto.getId())
                 .map(emp -> {
+                    Employe newEmploye = converter.fromBusinessToUser(userDto);
                     Optional.ofNullable(newEmploye.getPassword())
                             .ifPresent(pass -> newEmploye.setPassword(passwordEncoder.encode(newEmploye.getPassword()))) ;
                     Optional<Authority> authority = authorityRepository.findOneByName("ROLE_USER");
@@ -71,7 +78,7 @@ public class UserService
                     userRepository.save(newEmploye) ;
                     return  newEmploye ;
                 })
-                .orElseThrow(() -> new LogException("the user with id " + newEmploye.getId() + " not found"));
+                .orElseThrow(() -> new LogException("the user with id " + userDto.getId() + " not found"));
 
 
     }
@@ -96,12 +103,12 @@ public class UserService
     }
 
     @Transactional(readOnly = true)
-    public Employe getUserWithAuthorities() throws Exception
+    public UserDto getUserWithAuthorities() throws Exception
     {
         return userRepository.findOneByUsername(SecurityUtils.getCurrentUserLogin()).filter(Employe::isEnabled)
                 .map(us -> {
                     us.getAuthorities().size();
-                    return us;
+                    return converter.fromUserToBusiness(us);
                 }).orElseThrow(() -> new Exception("user not found "));
 
     }

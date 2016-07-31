@@ -39,7 +39,7 @@ public class OAuth2ServerConfiguration
                 .authenticationEntryPoint(authenticationEntryPoint)
             .and()
                 .logout()
-                .logoutUrl("/api/logout")
+                .logoutUrl("/ws/logout")
                 .logoutSuccessHandler(ajaxLogoutSuccessHandler)
             .and()
                 .csrf()

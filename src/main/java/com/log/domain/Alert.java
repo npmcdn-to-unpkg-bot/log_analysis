@@ -33,6 +33,10 @@ public class Alert
     @ManyToOne
     private Category category ;
 
+    @JsonIgnore
+    @ManyToOne
+    private LogFile logFile ;
+
 
     public long getId()
     {
@@ -102,5 +106,15 @@ public class Alert
     public void setCategory(Category category)
     {
         this.category = category;
+    }
+
+    public LogFile getLogFile()
+    {
+        return logFile;
+    }
+
+    public void setLogFile(LogFile logFile)
+    {
+        this.logFile = logFile;
     }
 }

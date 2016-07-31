@@ -1,0 +1,76 @@
+<div>
+    <h2 translate="userManagement.home.title">Users</h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+      <div class="col-md-4">
+          <button class="btn btn-primary" ui-sref="user-management.new">
+              <span class="glyphicon glyphicon-flash"></span> <span translate="userManagement.home.createLabel">Create a new User</span>
+          </button>
+      </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th >ID</th>
+                <th >Username</th>
+                <th >Address</th>
+                <th>Enabled</th>
+                <th >Cin</th>
+                <th >Role</th>
+                <th >First name</th>
+                <th >Last Name</th>
+                <th >tel</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in vm.users track by user.id">
+                <td><a ui-sref="user-management-detail({login:user.username})">{{user.id}}</a></td>
+                <td>{{user.username}}</td>
+                <td>{{user.address}}</td>
+                <td>
+                    <span class="label label-danger" ng-click="vm.setActive(user, true)" ng-show="!user.enabled"
+                           style="cursor: pointer;">Desactivated</span>
+                    <span class="label label-success" ng-click="vm.setActive(user, false)" ng-show="user.enabled"
+                           style="cursor: pointer;">Activated</span>
+                </td>
+                <td>{{user.cin}}</td>
+                <td>
+                    <div ng-repeat="authority in user.authorities">
+                        <span class="label label-info">{{ authority }}</span>
+                    </div>
+                </td>
+                <td>{{user.firstname}}</td>
+                <td>{{user.lastName }}</td>
+                <td>{{user.tel }}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                ui-sref="user-management-detail({id:user.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span class="hidden-xs hidden-sm" >view</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.edit({id:user.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="hidden-xs hidden-sm" >edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.delete({id:user.id})"
+                                class="btn btn-danger btn-sm" ng-disabled="vm.currentAccount.username==user.username">
+                            <span class="glyphicon glyphicon-remove-circle">delete</span>
+                            <span class="hidden-xs hidden-sm" ></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.loadAll()"></uib-pagination>
+    </div>
+</div>

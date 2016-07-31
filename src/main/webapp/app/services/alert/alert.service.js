@@ -1,0 +1,35 @@
+(function () {
+    'use strict';
+
+    angular
+        .module('logsApp')
+        .factory('ALertLog', ALertLog);
+
+    ALertLog.$inject = ['$resource'];
+
+    function ALertLog($resource) {
+        var service = $resource('ws/alert/:action', {}, {
+            'list': {
+                method: 'GET',
+                url: 'ws/alert/list',
+                isArray: true,
+
+                transformResponse: function (data) {
+                    data = angular.fromJson(data);
+                    return data;
+                }
+            },
+
+            'get': {
+                method: 'GET',
+                url: 'ws/alert/get'
+            },
+            'delete': {
+                method: 'DELETE',
+                url: 'ws/alert/delete'
+            }
+        });
+
+        return service;
+    }
+})();
