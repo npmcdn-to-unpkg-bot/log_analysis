@@ -21,13 +21,7 @@
             },
             'stat': {
                 method: 'GET',
-                url: 'ws/alert/statistic',
-                isArray: false,
-
-                transformResponse: function (data) {
-                    data = angular.fromJson(data);
-                    return data;
-                }
+                url: 'ws/alert/statistic'
             },
 
             'get': {

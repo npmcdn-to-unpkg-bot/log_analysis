@@ -11,6 +11,8 @@
         var vm = this;
         vm.onClick = onClick;
         vm.loadAll = loadAll;
+        vm.stats = {} ;
+        vm.dataPie =[] ;
 
         vm.loadAll();
 
@@ -18,7 +20,14 @@
         function loadAll () {
             ALertLog.stat({}, function (result) {
              //   console.log('The result is '+Object.keys(result)) ;
-                vm.alerts = result;
+                vm.stats = JSON.parse(JSON.stringify(result));
+                console.log(Object.keys(vm.stats)) ;
+
+                vm.labelsPie = Object.keys(vm.stats);
+                vm.labelsPie.forEach(function(val){
+                    console.log('val :'+val+'   :::  '+vm.stats[val]) ;
+                    vm.dataPie.push(vm.stats[val]);
+                }) ;
             });
         }
 
@@ -58,8 +67,8 @@
             [70, 45, 60, 7, 20, 80, 32]
         ];
 
-        vm.labelsPie = ['TRACE', 'DEBUG','INFO','WARN','ERROR','SEVERE'];
-        vm.dataPie = [65, 59, 80, 81, 56, 55, 40];
+
+
 
     }
 })();
