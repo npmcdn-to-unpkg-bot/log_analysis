@@ -16,6 +16,7 @@
             'ui.router',
             'infinite-scroll',
             'angular-loading-bar',
+            'chart.js'
         ])
         .run(run);
 

@@ -81,6 +81,13 @@
                                 <span >Alerts management</span>
                             </a>
                         </li>
+
+                        <li ui-sref-active="active">
+                            <a ui-sref="statistic" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-tasks"></span>&nbsp;
+                                <span >Statistics </span>
+                            </a>
+                        </li>
                         <li ng-hide="vm.inProduction" ui-sref-active="active">
                             <a ui-sref="docs" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-book"></span>&nbsp;

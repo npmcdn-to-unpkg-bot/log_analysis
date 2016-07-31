@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -141,6 +142,21 @@ public class AlertService
                 })
                 .orElseThrow(() -> new LogException("the alert with id " + id + " not found"));
 
+
+    }
+
+
+    public Map<LogLevel, Long> getAlertForStatistic()
+    {
+
+        return
+                alertRepository.findAll()
+                        .stream()
+                        .map(al -> converter.fromAlertToBusiness(al))
+                        .collect(
+                                Collectors.groupingBy(AlertDto::getCriticite,
+                                Collectors.counting())
+                        );
 
     }
 }

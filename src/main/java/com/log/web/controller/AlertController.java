@@ -2,6 +2,7 @@ package com.log.web.controller;
 
 import com.log.domain.Alert;
 import com.log.domain.Employe;
+import com.log.domain.LogLevel;
 import com.log.exception.LogException;
 import com.log.repository.AlertRepository;
 import com.log.security.AuthoritiesConstants;
@@ -22,6 +23,7 @@ import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -103,6 +105,20 @@ public class AlertController
 
         return ResponseEntity.created(new URI("/alert/list/date"))
                 .body(result);
+
+    }
+
+
+    @RequestMapping(value = "/statistic",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @Secured(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<?> getAlertListForStatistic() throws URISyntaxException, LogException
+    {
+        logger.debug("Call rest to get the list of   alert ");
+        Map<LogLevel,Long> alertDtos = alertService.getAlertForStatistic() ;
+        return new ResponseEntity<>(alertDtos,  HttpStatus.OK);
 
     }
 

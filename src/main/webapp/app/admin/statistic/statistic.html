@@ -1,0 +1,20 @@
+<div>
+    <h2 >Log files</h2>
+    <!--<jhi-alert>{{vm.labels}}</jhi-alert>-->
+    <canvas class="chart chart-line" chart-data="vm.data" chart-labels="vm.labels"
+            chart-series="vm.series" chart-click="vm.onClick()"></canvas>
+</div>
+
+<div>
+    <canvas id="bar" class="chart chart-bar"
+            chart-data="vm.dataBar" chart-labels="vm.labelsBar" chart-series="vm.seriesBar">
+    </canvas>
+
+</div>
+
+<div>
+
+    <canvas id="pie" class="chart chart-pie"
+            chart-data="vm.dataPie" chart-labels="vm.labelsPie" >
+    </canvas>
+</div>
