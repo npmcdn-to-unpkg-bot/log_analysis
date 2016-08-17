@@ -9,6 +9,8 @@ import com.log.utils.BusinessAndDomainConverter;
 import com.log.web.dto.AlertDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -128,9 +130,11 @@ public class AlertService
 
     }
 
-    public List<Alert> getAlertListBetweenDates(String start, String end)
+    public Page<Alert> getAlertListBetweenDates(String start, String end, Pageable pageable)
     {
-        return alertRepository.findByDateBetween(start, end);
+        return alertRepository.findByDateBetween(LocalDate.parse(start, Constants.LocalDateFormatter),
+                LocalDate.parse(end, Constants.LocalDateFormatter),
+                pageable);
     }
 
     public Alert delete(long id) throws LogException

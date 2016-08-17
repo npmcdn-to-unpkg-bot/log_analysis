@@ -98,13 +98,15 @@ public class AlertController
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<?> getAlertList(@RequestParam("start")String start,@RequestParam("end")String end) throws URISyntaxException, LogException
+    public ResponseEntity<?> getAlertList(Pageable pageable,@RequestParam("start")String start,@RequestParam("end")String end) throws URISyntaxException, LogException
     {
         logger.debug("Call rest to get the list of   alert between  {} and {}",start,end);
-        List<Alert> result = alertService.getAlertListBetweenDates(start,end);
-
-        return ResponseEntity.created(new URI("/alert/list/date"))
-                .body(result);
+        Page<Alert> page = alertService.getAlertListBetweenDates(start,end,pageable);
+        List<AlertDto> alertDtos = page.getContent().stream()
+                .map(al -> converter.fromAlertToBusiness(al))
+                .collect(Collectors.toList());
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/alert/list/date");
+        return new ResponseEntity<>(alertDtos, headers, HttpStatus.OK);
 
     }
 

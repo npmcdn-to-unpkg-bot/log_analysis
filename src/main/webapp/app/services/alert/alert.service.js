@@ -19,6 +19,16 @@
                     return data;
                 }
             },
+            'listByDate': {
+                method: 'GET',
+                url: 'ws/alert/list/date',
+                isArray: true,
+
+                transformResponse: function (data) {
+                    data = angular.fromJson(data);
+                    return data;
+                }
+            },
             'stat': {
                 method: 'GET',
                 url: 'ws/alert/statistic'

@@ -1,7 +1,29 @@
 <div>
     <h2 >Alerts</h2>
     <jhi-alert></jhi-alert>
-    <div class="table-responsive">
+
+    <div class="form-group">
+        <p class="alert alert-danger" ng-show ='vm.error.isError'>{{vm.error.message}}</p>
+        <label class="control-label"
+                >Date Start</label>
+        <input ui-date="dateOptions" ui-date-format="mm/dd/yyyy"  class="form-control"   name="DateStart" ng-required="true"
+               ng-model="vm.dateStart" >
+
+        <label class="control-label"
+                >Date end</label>
+        <input ui-date-format="yyy-MM-dd"  class="form-control"  ui-date="dateOptions" name="DateEnd" ng-required="true"
+               ng-model="vm.dateEnd" >
+
+        <button type="submit" ng-click="vm.getAlert()"
+                class="btn btn-success " ng-disabled="!vm.dateStart || !vm.dateEnd">
+            <span class="glyphicon glyphicon-remove-circle">send</span>
+            <span class="hidden-xs hidden-sm" ></span>
+        </button>
+
+    </div>
+
+    <div ng-show="vm.alerts.length != 0">
+    <div class="table-responsive" >
         <table class="table table-striped">
             <thead>
             <tr>
@@ -54,5 +76,7 @@
     </div>
     <div class="text-center">
         <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.loadAll()"></uib-pagination>
+    </div>
+
     </div>
 </div>
